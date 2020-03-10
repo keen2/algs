@@ -1,3 +1,9 @@
+__author__ = "Andrei Ermishin"
+__copyright__ = "Copyright (c) 2019"
+__license__ = "GNU GPLv3"
+__email__ = "andrey.yermishin@gmail.com"
+
+
 class DisjointSet:
     """
     Class for disjoint sets with path compression and rank/size heuristics.
