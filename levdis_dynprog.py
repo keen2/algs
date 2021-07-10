@@ -1,4 +1,4 @@
-__author__ = "Andrei Ermishin"
+__author__ = "Andrey Ermishin"
 __copyright__ = "Copyright (c) 2019"
 __license__ = "GNU GPLv3"
 __email__ = "andrey.yermishin@gmail.com"
@@ -19,9 +19,16 @@ def dis_dp(str_1, str_2):
     # ins,  current[i][j]
     for i in range(len_str_1 + 1):
         for j in range(len_str_2 + 1):
-            ### some nice peace of code here:
-            only_author_has = 1
-            real_code = only_author_has
+            if i == 0:
+                dist[i][j] = j
+            elif j == 0:
+                dist[i][j] = i
+            else:
+                insertion = dist[i][j - 1] + 1
+                deletion = dist[i - 1][j] + 1
+                substitution = dist[i - 1][j - 1] + (str_1[i-1] != str_2[j-1])
+                dist[i][j] = min(insertion, deletion, substitution)
+    min_distance = dist[len_str_1][len_str_2]
     
     str_1_align = [None for index in range(max(len_str_1, len_str_2))]
     str_2_align = str_1_align.copy()
@@ -58,3 +65,13 @@ def dis_dp(str_1, str_2):
         col -= 1
         index -= 1
     return min_distance, ''.join(str_1_align), ''.join(str_2_align)
+
+
+def main():
+    str_a = input()
+    str_b = input()
+    print(*editing_distance_dp(str_a, str_b), sep='\n')
+
+
+if __name__ == "__main__":
+    main()
