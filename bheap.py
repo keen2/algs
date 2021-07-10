@@ -1,4 +1,4 @@
-__author__ = "Andrei Ermishin"
+__author__ = "Andrey Ermishin"
 __copyright__ = "Copyright (c) 2019"
 __license__ = "GNU GPLv3"
 __email__ = "andrey.yermishin@gmail.com"
@@ -31,9 +31,16 @@ class BinaryHeapMin:
         """ Swap value under current idx with smallest of children. """
         while True:
             left, right = 2*idx + 1, 2*idx + 2
-            ### some nice peace of code here:
-            only_author_has = 1
-            real_code = only_author_has
+            childs = (left if left < len(self._lst) else idx,
+                      right if right < len(self._lst) else idx)
+            child_min = min(childs, key=lambda x: self._lst[x])
+
+            if child_min == idx or self._lst[idx] <= self._lst[child_min]:
+                break
+
+            self._lst[child_min], self._lst[idx] = self._lst[idx], self._lst[child_min]
+            self._swaps_lst.append((idx, child_min))
+            idx = child_min
     
     def get_min(self):
         """ Return heap minimum. """
